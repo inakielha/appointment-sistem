@@ -2,9 +2,9 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 const mongoose = require("mongoose");
 const User = require('../models/Users');
-const {validateField} = require("../middlewares/validateFields")
+const {validateFields} = require("../middlewares/validateFields")
 const router = Router();
-const {createUser} = require("../controllers/users")
+const {createUser, logInUser} = require("../controllers/users")
 
 router.post(
     "/new",
@@ -20,8 +20,21 @@ router.post(
         .isIn(["123456","password1","god123"])
         .withMessage('No es una constraseña segura')
         .isLength({ min: 6 }),
-        check('userName', userNameReq).not().isEmpty(),
-        validateField
+        check('userName', "El nombre es obligatorio").not().isEmpty(),
+        validateFields
     ],
     createUser
     )
+router.post(
+    "/",
+    [
+        check("userEmail","El mail es obligatorio").not().isEmpty(),
+        check("userEmail", "El mail no es valido.").isEmail(),
+        // check("userPassword","La contraseña es obligatoria").not().isEmpty(),
+        // check("userPassword","La contraseña debe tener al menos 6 caracteres.")
+        // .isLength({ min: 6 }),
+        validateFields
+    ],
+    logInUser
+)
+    module.exports = router
