@@ -57,6 +57,7 @@ try {
     res.send({
         ok:true,
         name: user.userName,
+        email: userEmail,
         token
     })
 

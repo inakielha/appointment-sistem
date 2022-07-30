@@ -1,6 +1,8 @@
 const express = require("express")
 const {dbConnection} = require("./db/config.js")
 const usersRouter = require("./routes/user")
+const customerRouter = require("./routes/customer")
+
 
 require('dotenv').config()
 const app = express()
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.use('/users', usersRouter);
+app.use('/customers', customerRouter);
+
 
 
 app.listen(app.get("port"),()=>{
