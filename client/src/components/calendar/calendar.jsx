@@ -1,53 +1,58 @@
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction"
-import InputCalendar from '../inputCalendar/inputCalendar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import CalendarDiario from '../calendarDiario/calendarDiario'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDates } from '../../redux/actions'
 
-export default function Calendar(){
+export default function Calendar() {
     const [openSave, setOpenSave] = useState(false)
+    const [date, setDate] = useState("")
+    const dispatch = useDispatch()
+    const param = useParams()
+    const customerId= {customerId:param.id}
+    console.log(customerId)
+    const allDates = useSelector((state)=>state.allDates) 
+    
 
-    function handleDateClick () { // bind with an arrow function
-        console.log("lo lograste")
-        return (
-            <form >
-                <label >turno</label>
-                <input type="text" />
-            </form>
-        )
-      }
-    function renderContent(info){
-        return(
-            <>
-            <b>{info.timeText}</b>
-            <i>{info.event.title}</i>
-            </>
-        )
-    }
-    function injectContent (args){
-        return (
-            <div>
-                <button onClick={()=>saveRecord(args.date)}>
-                    {args.dayNumberText}
-                </button>
-            </div>
-        )
-    }
-    function saveRecord (){
+    let data = allDates?.notes?.map((date)=>{
+        return {
+            title: "Appointment",
+            start: date.date,
+            end: date.date
+        }
+    })
+
+    function saveRecord(args) {
         setOpenSave(true)
+        setDate(args.dateStr)
+        console.log(args.dateStr)
     }
+
+    useEffect(()=>{
+        dispatch(getDates(customerId))
+        console.log("hola")
+    },[dispatch]);
     return (
         <div>
-
-        <FullCalendar
-        plugins={[dayGridPlugin,interactionPlugin]}
-        initialView = "dayGridMonth"
-        // selectable = {true}
-        // dayCellContent = {injectContent}
-        dateClick = {saveRecord}
-        // eventContent = {renderContent}
-        />
-        <InputCalendar open={openSave} onClose={setOpenSave}/>
+            <h3>Make an appointment</h3>
+            {!openSave &&
+                <FullCalendar
+                    plugins={[dayGridPlugin, interactionPlugin]}
+                    initialView="dayGridMonth"
+                    dateClick={saveRecord}
+                    events={data}
+                    businessHours={
+                        {daysOfWeek:[1,2,3,4]}
+                    }
+                />
+            }
+            {
+                openSave &&
+                <CalendarDiario data={data} openSave={openSave} setOpenSave={setOpenSave} date={date}></CalendarDiario>
+            }
         </div>
     )
 }

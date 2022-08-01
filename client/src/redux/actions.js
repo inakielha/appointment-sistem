@@ -1,10 +1,11 @@
-import axios from "axios"
 
+import axios from "axios"
 export const CREATE_USER = "CREATE_USER"
 export const LOGIN = "LOGIN"
-
-
-
+export const GET_ALL_PROFESSIONS = "GET_ALL_PROFESSIONS"
+export const GET_BY_PROFESSION = "GET_BY_PROFESSION"
+export const CREATE_DATE = "CREATE_DATE"
+export const GET_DATES = "GET_DATES"
 
 export function createUser(info){
 return async function (dispatch){
@@ -34,6 +35,61 @@ export function login(info){
             return dispatch({
                 type: LOGIN,
                 payload: e
+            })
+        }
+    }
+}
+export function getProfessions(){
+    return async function (dispatch){
+        try {
+            const res = await axios.get("http://localhost:4000/customers/");
+            return dispatch({
+                type: GET_ALL_PROFESSIONS,
+                payload: res.data
+            })
+        } catch(e){
+            console.log(e)
+        }
+    }
+}
+export function getByProfession(profession){
+    return  function(dispatch){
+        return dispatch({
+            type: GET_BY_PROFESSION,
+            payload: profession
+        })
+    }
+}
+export function createDate(info){
+    return async function(dispatch){
+        try {
+            const res = await axios.post("http://localhost:4000/dates/new",info)
+            return dispatch({
+                type: CREATE_DATE,
+                payload: res.data
+            })
+        } catch (e){
+            console.log(e)
+            return dispatch({
+                ok: false,
+                msg:e
+            })
+        }
+    }
+}
+export function getDates(customerId){
+    return async function(dispatch){
+        try{
+            const res = await axios.post("http://localhost:4000/dates/",customerId);
+            return dispatch({
+                type: GET_DATES,
+                payload: res.data
+            })
+        }catch(e){
+            console.log(e)
+            return dispatch({
+                ok:false,
+                msg:e
             })
         }
     }
