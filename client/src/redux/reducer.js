@@ -1,4 +1,4 @@
-import { CREATE_DATE, CREATE_USER, GET_ALL_PROFESSIONS, GET_BY_PROFESSION, GET_DATES, LOGIN } from "./actions"
+import { CREATE_DATE, CREATE_USER, GET_ALL_PROFESSIONS, GET_BY_PROFESSION, GET_DATES, LOGIN, SEARCH_CUSTOMER } from "./actions"
 
 
 const initialState = {
@@ -54,5 +54,14 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 allDates: action.payload
             }
+            case SEARCH_CUSTOMER:
+                const res = state.allCustomers.filter((ele)=>{
+                    return ele.customerName.includes(action.payload.toLowerCase())
+                    // console.log(ele.customerName,action.payload.toLowerCase())
+                })
+                return {
+                    ...state,
+                    customerToRender: res
+                }
     }
 }

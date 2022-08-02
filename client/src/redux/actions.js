@@ -6,6 +6,7 @@ export const GET_ALL_PROFESSIONS = "GET_ALL_PROFESSIONS"
 export const GET_BY_PROFESSION = "GET_BY_PROFESSION"
 export const CREATE_DATE = "CREATE_DATE"
 export const GET_DATES = "GET_DATES"
+export const SEARCH_CUSTOMER = "SEARCH_CUSTOMER"
 
 export function createUser(info){
 return async function (dispatch){
@@ -92,5 +93,13 @@ export function getDates(customerId){
                 msg:e
             })
         }
+    }
+}
+export function searchCustomer(customerName){
+    return function(dispatch){
+        return dispatch({
+            type: SEARCH_CUSTOMER,
+            payload: customerName.customerName
+        })
     }
 }

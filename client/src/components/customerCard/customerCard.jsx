@@ -6,11 +6,12 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import img from "../../assets/cat.jpg"
 import { Link } from "react-router-dom"
+import style from "./customer.module.css"
 
 
 export default function CustomerCard(props){
   return (
-    <Link to={`home/${props.id}`}>
+    <Link className={style.link} to={`home/${props.id}`}>
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia

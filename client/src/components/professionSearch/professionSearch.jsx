@@ -29,6 +29,7 @@ export default function ProfessionSearch() {
     
     return (
         <div>
+            <h4>Search by Profession</h4>
             <Select defaultValue="All" autoFocus={true} onChange={(e) => handleSelect(e)}>
                 <MenuItem key={12} value={"All"} hidden> All</MenuItem>
                 {professonFiltrado?.map((work) => (
