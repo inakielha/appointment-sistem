@@ -7,6 +7,7 @@ export const GET_BY_PROFESSION = "GET_BY_PROFESSION"
 export const CREATE_DATE = "CREATE_DATE"
 export const GET_DATES = "GET_DATES"
 export const SEARCH_CUSTOMER = "SEARCH_CUSTOMER"
+export const CREATE_CUSTOMER = "CREATE_CUSTOMER"
 
 export function createUser(info){
 return async function (dispatch){
@@ -101,5 +102,22 @@ export function searchCustomer(customerName){
             type: SEARCH_CUSTOMER,
             payload: customerName.customerName
         })
+    }
+}
+export function createCustomer(info){
+    return async function(dispatch){
+        try{
+            let res = await axios.post("http://localhost:4000/customers/new",info);
+            return dispatch({
+                type: CREATE_CUSTOMER,
+                payload: res.data
+            })
+        }catch(e){
+            console.log(e)
+            return dispatch({
+                type: CREATE_CUSTOMER,
+                payload:{ok:false,error:e}
+            })
+        }
     }
 }

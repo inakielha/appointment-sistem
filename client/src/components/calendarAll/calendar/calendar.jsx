@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react'
 import CalendarDiario from '../calendarDiario/calendarDiario'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDates } from '../../redux/actions'
+import { getDates } from '../../../redux/actions'
+
 
 export default function Calendar() {
     const [openSave, setOpenSave] = useState(false)

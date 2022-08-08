@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { createDate } from '../../redux/actions';
+import { createDate } from '../../../redux/actions';
+
 
 
 
@@ -43,6 +44,7 @@ export default function InputCalendar(props){
         }
         console.log(send)
         dispatch(createDate(send))
+        props.setOpenInput(false)
     }
 
     return (

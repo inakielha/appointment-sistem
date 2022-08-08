@@ -4,10 +4,11 @@ import interactionPlugin from "@fullcalendar/interaction"
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import InputCalendar from '../inputCalendar/inputCalendar';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getDates } from '../../redux/actions';
+import { getDates } from '../../../redux/actions';
+import InputCalendar from '../inputCalendar/inputCalendar';
+
 
 
 

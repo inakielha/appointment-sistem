@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, TextField, } from "@mui/material";
-import LinkMaterial from '@mui/material/Link';
-
 import style from "./login.module.css"
+import { login } from "../../../redux/actions";
 
 
 export default function LogIn(){
@@ -42,7 +40,7 @@ export default function LogIn(){
             <label>Email</label>
             <input type="text" name="userEmail" value={input.userEmail} onChange={(e)=>handleInput(e)} />
                 </div> */}
-            <TextField sx={{margin: "20px 0"}} id="outlined-basic" label="Password" variant="outlined" type="password" name="userPassword" value={input.userPassword} onChange={(e)=>handleInput(e)} />
+            <TextField sx={{margin: "2em 0",width:"100%"}} id="outlined-basic" label="Password" variant="outlined" type="password" name="userPassword" value={input.userPassword} onChange={(e)=>handleInput(e)} />
                 {/* <div>
             <label>Password</label>
             <input type="password" name="userPassword" value={input.userPassword} onChange={(e)=>handleInput(e)} />
@@ -52,7 +50,7 @@ export default function LogIn(){
             </form>
             {response.msg && 
             <h4>{response.msg}</h4>}
-            <Link to= "/createAccount" className={style.link}> New user? Create account </Link>
+            <Link to= "/welcome" className={style.link}> New user? Create account </Link>
             </div>
         </div>
     )

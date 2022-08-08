@@ -1,0 +1,59 @@
+.container{
+    /* background-color: red; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.text{
+    margin-top: 1em;
+    font-size: 4rem;
+    font-family: "lato";
+
+}
+.card {
+    background-color: #f1faee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    margin: 3em 0;
+    padding-top: 2em;
+    border-radius: 1rem;
+    box-shadow: 0.2rem 0 2rem grey,-0.2rem 0.2rem 1rem grey;
+
+}
+.text1{
+    font-size: 2.5rem;
+    /* padding: 1em 0; */
+    margin: 1em 0;
+    border-bottom: 0.5rem solid white;
+}
+.optionSelect{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    width: 80%;
+    margin: 1em;
+    margin-bottom: 2em;
+    /* background-color: #f1faee; */
+}
+.option{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 3rem;
+    font-size: 3.5rem;
+    /* margin: 1em; */
+}
+
+.image{
+    width: 80%;
+    height: 70%;
+    border-radius: 0.5rem;
+}

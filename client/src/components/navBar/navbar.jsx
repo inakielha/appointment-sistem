@@ -11,6 +11,7 @@ import Home from '@mui/icons-material/Home';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch } from 'react-redux';
 import { searchCustomer } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,6 +59,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function NavBar() {
   const [input,setInput] = React.useState({customerName:""})
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   function handleSearch(e){
     setInput({
       customerName: e.target.value
@@ -67,11 +69,15 @@ export default function NavBar() {
     e.preventDefault()
     dispatch(searchCustomer(input))
   }
+  function handleClick(e){
+    navigate("/landing")
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
+            onClick={(e)=>handleClick(e)}
             size="large"
             edge="start"
             color="inherit"

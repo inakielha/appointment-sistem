@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import Calendar from "../calendar/calendar";
+import Calendar from "../../calendarAll/calendar/calendar";
 import ProfessionSearch from "../professionSearch/professionSearch";
-import { getProfessions } from "../../redux/actions"
+import { getProfessions } from "../../../redux/actions"
 import { useDispatch, useSelector } from "react-redux";
 import CustomerCard from "../customerCard/customerCard";
 import Container from '@mui/material/Container';

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getByProfession, getProfessions } from "../../redux/actions"
+import { getByProfession, getProfessions } from "../../../redux/actions"
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 export default function ProfessionSearch() {
-    const [trabajo, setTrabajo] = useState("")
+    const [trabajo, setTrabajo] = useState({profession: "All"})
     const allProfessions = useSelector((state) => state.allCustomers);
     let professonFiltrado = []
     allProfessions.map(el=>(professonFiltrado.includes(el.profession) ? "": professonFiltrado.push(el.profession)))

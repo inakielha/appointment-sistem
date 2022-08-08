@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-import img from "../../assets/cat.jpg"
+import img from "../../../assets/cat.jpg"
 import { Link } from "react-router-dom"
 import style from "./customer.module.css"
 
