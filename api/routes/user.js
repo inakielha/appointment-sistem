@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 const User = require('../models/Users');
 const {validateFields} = require("../middlewares/validateFields")
 const router = Router();
-const {createUser, logInUser} = require("../controllers/users")
+const {createUser, logInUser} = require("../controllers/users");
+const { validateJWT } = require('../middlewares/validateJWS');
 
 router.post(
     "/new",
@@ -21,7 +22,7 @@ router.post(
         .withMessage('No es una constraseña segura')
         .isLength({ min: 6 }),
         check('userName', "El nombre es obligatorio").not().isEmpty(),
-        validateFields
+        validateFields,
     ],
     createUser
     )

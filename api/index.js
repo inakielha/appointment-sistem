@@ -2,6 +2,7 @@ const express = require("express")
 const {dbConnection} = require("./db/config.js")
 const usersRouter = require("./routes/user")
 const customerRouter = require("./routes/customer")
+const dateRouter = require("./routes/date")
 
 
 require('dotenv').config()
@@ -22,6 +23,8 @@ app.use(express.json());
 
 app.use('/users', usersRouter);
 app.use('/customers', customerRouter);
+app.use('/dates', dateRouter);
+
 
 
 

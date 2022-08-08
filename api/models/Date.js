@@ -13,5 +13,10 @@ const DateSchema = new Schema({
         ref: "Users",
         required: true
     },
+    customerId: {
+        type: Schema.Types.ObjectId,
+        ref: "Customers",
+        required: true
+    }
 })
 module.exports = model('Date', DateSchema)

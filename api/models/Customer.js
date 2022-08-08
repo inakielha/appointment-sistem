@@ -10,7 +10,20 @@ const CustomerSchema = new Schema({
         type: String,
     },
     customerName: {
-        type: String
+        type: String,
+        required: true
+    },
+    adress: {
+        type: String,
+        required: true
+    },
+    profession: {
+        type: String,
+        required: true
+
+    },
+    image: {
+        type: String,
     }
 })
 module.exports = model('Customer', CustomerSchema)

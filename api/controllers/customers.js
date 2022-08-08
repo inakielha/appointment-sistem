@@ -7,14 +7,17 @@ const jwt = require("jsonwebtoken");
 
 const createCustomer = async (req,res)=>{
     const {
-        customerEmail, customerPassword, customerName, customerGoogle
+        customerEmail, customerPassword, customerName, customerGoogle, profession,adress,image
     } = req.body;
     try{
         let newCustomer = new Customers({
             customerEmail,
             customerPassword,
             customerName,
-            customerGoogle
+            customerGoogle,
+            profession,
+            adress,
+            image
         })
         if (!customerGoogle){
 
@@ -67,7 +70,21 @@ try {
     
 }
 }
+const getProfession = async(req,res)=>{
+    try{
+        let allProfessions = []
+        const professions = await Customers.find({})
+        // professions.forEach((el)=>{
+        //     allProfessions.push(el.profession)
+        // })
+        res.json(professions)
+    }catch (e){
+        console.log(e)
+        res.status(400).json({ok:false,msg:e})
+    }
+}
 module.exports = {
     createCustomer,
-    logInCustomer
+    logInCustomer,
+    getProfession
 }

@@ -58,6 +58,7 @@ try {
         ok:true,
         name: user.userName,
         email: userEmail,
+        id: user._id,
         token
     })
 
