@@ -3,10 +3,13 @@ const {dbConnection} = require("./db/config.js")
 const usersRouter = require("./routes/user")
 const customerRouter = require("./routes/customer")
 const dateRouter = require("./routes/date")
+const cors = require('cors')
 
 
 require('dotenv').config()
 const app = express()
+
+app.use(cors())
 
 dbConnection()
 

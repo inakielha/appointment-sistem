@@ -3,8 +3,6 @@ const Users = require('../models/Users');
 bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 
-
-
 const createUser = async (req,res)=>{
     const {
         userEmail,userPassword, userName, userGoogle
@@ -51,7 +49,8 @@ try {
     }
     const userForToken = {
         id: user._id,
-        userName: user.userName
+        name: user.userName,
+        type: "user"
     }
     const token = jwt.sign(userForToken, process.env.SECRET,{expiresIn: 60 * 60 * 24 * 7})
     res.send({
@@ -59,6 +58,8 @@ try {
         name: user.userName,
         email: userEmail,
         id: user._id,
+        user: true,
+        type: "user",
         token
     })
 
@@ -68,7 +69,30 @@ try {
     
 }
 }
+const newToken = async (req , res = response)=>{
+    const { id, name , type } = req;
+    try{
+        const userForToken = {
+            id,
+            name,
+            type
+        }
+        const token = jwt.sign(userForToken, process.env.SECRET,{expiresIn: 60 * 60 * 24 * 7})
+        res.send({
+            ok:true,
+            name: name,
+            id: id,
+            type,
+            token
+        })
+    }catch (e){
+        console.log(e)
+        res.status(404).json("not found")
+    }
+
+}
 module.exports = {
     createUser,
-    logInUser
+    logInUser,
+    newToken
 }
