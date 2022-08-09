@@ -9,7 +9,7 @@ import style from "../createUser/createUser.module.css"
 
 export default function CreateCustomer(){
 const dispatch = useDispatch();
-const response = useSelector((state)=> state.response)
+const response = useSelector((state)=> state.createCustomerResponse)
     const [input, setInput] = useState({
         customerName:"",
         customerEmail:"",

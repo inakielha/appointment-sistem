@@ -8,17 +8,22 @@ import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
-import { createDate } from '../../../redux/actions';
+import { createDate, getDates } from '../../../redux/actions';
+import {getToken,getAllInfoToken} from '../../../helper/getToken';
+import { useEffect } from 'react';
 
 
 
 
 export default function InputCalendar(props){
-    const userId = useSelector((state)=>state.userId)
-    const res = useSelector((state) => state.response)
+    let storageLocal = getAllInfoToken()
+    let userId = storageLocal.id
+    const res = useSelector((state) => state.dateResponse)
     const dispatch = useDispatch()
+    const [render, setRender] = useState(false)
     const param = useParams()
     const customerId= param.id
+    const token = getToken()
     const [info, setInfo] = useState({
     title: ""
     })
@@ -36,24 +41,33 @@ export default function InputCalendar(props){
     function handleSubmit (e){
         e.preventDefault()
         let send = {
-            title: info.title,
-            date: props.date,
-            email: res.userEmail,
-            customerId,
-            userId
+            info:{
+                title: info.title,
+                date: props.date,
+                email: res.userEmail,
+                customerId,
+                userId
+            },
+            token
         }
-        console.log(send)
         dispatch(createDate(send))
+        setInfo({
+            title: ""
+        })
+        setRender(!render)
         props.setOpenInput(false)
     }
 
+    useEffect(()=>{
+        dispatch(getDates(props.tokenInfo))
+    },[render])
     return (
         <div>
             <Dialog open = {props.open} onClose={handleClouse}>
                 <DialogTitle>Appointment</DialogTitle>
-                <DialogContent>
+                <DialogContent sx={{margin: "1em"}} >
                     <form onSubmit={(e)=>handleSubmit(e)}>
-                        <TextField label="Subject" onChange={(e)=>handleInput(e)} name="title" value={info.title} fullWidth={true}/>
+                        <TextField sx={{marginTop: "2em"}} label="Subject" onChange={(e)=>handleInput(e)} name="title" value={info.title} fullWidth={true}/>
                         {/* <TextField label="Amount" fullWidth={true} /> */}
                         <DialogActions>
                             <Button onClick={handleClouse}>Close</Button>

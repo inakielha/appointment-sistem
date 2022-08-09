@@ -6,6 +6,7 @@ import CalendarDiario from '../calendarDiario/calendarDiario'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDates } from '../../../redux/actions'
+import {getToken} from '../../../helper/getToken'
 
 
 export default function Calendar() {
@@ -14,9 +15,14 @@ export default function Calendar() {
     const dispatch = useDispatch()
     const param = useParams()
     const customerId= {customerId:param.id}
-    console.log(customerId)
     const allDates = useSelector((state)=>state.allDates) 
-    
+    const token = getToken();
+    const info = {
+        customerId,
+            token:{
+                token
+            }
+        }
 
     let data = allDates?.notes?.map((date)=>{
         return {
@@ -33,9 +39,9 @@ export default function Calendar() {
     }
 
     useEffect(()=>{
-        dispatch(getDates(customerId))
-        console.log("hola")
+        dispatch(getDates(info))
     },[dispatch]);
+
     return (
         <div>
             <h3>Make an appointment</h3>
@@ -46,13 +52,13 @@ export default function Calendar() {
                     dateClick={saveRecord}
                     events={data}
                     businessHours={
-                        {daysOfWeek:[1,2,3,4]}
+                        {daysOfWeek:[1,2,3,4,5]}
                     }
                 />
             }
             {
                 openSave &&
-                <CalendarDiario data={data} openSave={openSave} setOpenSave={setOpenSave} date={date}></CalendarDiario>
+                <CalendarDiario tokenInfo={info} data={data} openSave={openSave} setOpenSave={setOpenSave} date={date}></CalendarDiario>
             }
         </div>
     )

@@ -1,18 +1,19 @@
-import { useEffect } from "react";
+
 import Calendar from "../../calendarAll/calendar/calendar";
 import ProfessionSearch from "../professionSearch/professionSearch";
-import { getProfessions } from "../../../redux/actions"
 import { useDispatch, useSelector } from "react-redux";
 import CustomerCard from "../customerCard/customerCard";
 import Container from '@mui/material/Container';
 
 import style from "./landing.module.css";
+import NavBar from "../../navBar/navbar";
 
 export default function Landing(){
     const allCustomersToRender = useSelector((state=>state.customerToRender))
     const allCustomersDB = useSelector((state=>state.allCustomers))
-    
     return(
+        <>
+            <NavBar/>
         <Container maxWidth="sm">
             <ProfessionSearch/>
             <Container>
@@ -27,5 +28,6 @@ export default function Landing(){
                 })}
                 </Container>
         </Container>
+        </>
     )
 }

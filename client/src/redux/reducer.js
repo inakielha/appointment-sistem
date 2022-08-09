@@ -1,13 +1,20 @@
-import { CREATE_CUSTOMER, CREATE_DATE, CREATE_USER, GET_ALL_PROFESSIONS, GET_BY_PROFESSION, GET_DATES, LOGIN, SEARCH_CUSTOMER } from "./actions"
+import { CHECK_LOGIN, CLEAR_RESPONSE_LOGIN, CREATE_CUSTOMER, CREATE_DATE, CREATE_USER, GET_ALL_PROFESSIONS, GET_BY_PROFESSION, GET_DATES, LOGIN, LOGIN_CUSTOMER, SEARCH_CUSTOMER, SELECT_USER_TYPE } from "./actions"
 
 
 const initialState = {
     calendar: [],
     response: "",
+    createCustomerResponse: "",
+    dateResponse: "",
+    createResponse: "",
+    loginUserResponse: "",
     allCustomers: [],
     customerToRender: [],
     userId: "",
-    allDates: []
+    allDates: [],
+    userType: "",
+    responseCheck: "",
+    loginCustomerResponse: ""
 }
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -16,12 +23,17 @@ export default function reducer(state = initialState, action) {
         case CREATE_USER:
             return {
                 ...state,
-                response: action.payload
+                createResponse: action.payload
             }
         case LOGIN:
+            if (action.payload.ok) {
+                window.localStorage.setItem(
+                    "loggedCustomer", JSON.stringify(action.payload)
+                )
+            }
             return {
                 ...state,
-                response: action.payload,
+                loginUserResponse: action.payload,
                 userId: action.payload.id
             }
         case GET_ALL_PROFESSIONS:
@@ -47,7 +59,7 @@ export default function reducer(state = initialState, action) {
         case CREATE_DATE:
             return {
                 ...state,
-                response: action.payload
+                dateResponse: action.payload
             }
         case GET_DATES:
             return {
@@ -66,7 +78,34 @@ export default function reducer(state = initialState, action) {
         case CREATE_CUSTOMER:
             return {
                 ...state,
-                response: action.payload
+                createCustomerResponse: action.payload
+            }
+        case SELECT_USER_TYPE:
+            return {
+                ...state,
+                userType: action.payload
+            }
+        case LOGIN_CUSTOMER:
+            if (action.payload.ok) {
+                window.localStorage.setItem(
+                    "loggedCustomer", JSON.stringify(action.payload)
+                )
+            }
+            return {
+                ...state,
+                loginCustomerResponse: action.payload,
+                userId: action.payload.id
+            }
+        case CHECK_LOGIN:
+            return {
+                ...state,
+                responseCheck: action.payload,
+            }
+        case CLEAR_RESPONSE_LOGIN:
+            return {
+                ...state,
+                loginCustomerResponse: { ...state.loginCustomerResponse, ok: false },
+                loginUserResponse: { ...state.loginUserResponse, ok: false }
             }
     }
 }

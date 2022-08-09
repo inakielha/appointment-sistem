@@ -4,10 +4,13 @@ import userImages from "../../../assets/user2.jpg"
 import { Button } from "@mui/material"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-
+import { useDispatch } from "react-redux"
+import { selectUserType } from "../../../redux/actions"
+import { useEffect } from "react"
 
 
 export default function Welcome() {
+    const dispatch = useDispatch();
     const [user, setUser] = useState()
     const [btn,setBtn] = useState(true);
     const navigate = useNavigate()
@@ -24,9 +27,23 @@ export default function Welcome() {
     setUser(e.target.title)
     setBtn(false)
     }
+
     function handleSubmit(){
-    user === "user" ? navigate("/createAccount") : navigate("/createCustomer")
+    dispatch(selectUserType(user))
+    navigate("/login")
     }
+    function getStorage(){
+        const localDataStorage = window.localStorage.getItem("loggedCustomer")
+        if(localDataStorage){
+            const user = JSON.parse(localDataStorage)
+            if(user.ok){
+                navigate("/landing")
+            }
+        }
+    }
+    useEffect(()=>{
+    getStorage()
+    },[])
     return (
         <div className={style.container}>
             <h3 className={style.text}>Welcome to WeCalendar</h3>

@@ -8,10 +8,12 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Home from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch } from 'react-redux';
 import { searchCustomer } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
+import AlertDialog from '../logInAll/logOut/dialog';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -58,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function NavBar() {
   const [input,setInput] = React.useState({customerName:""})
+  const [profile, setProfile] = React.useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   function handleSearch(e){
@@ -72,6 +75,10 @@ export default function NavBar() {
   function handleClick(e){
     navigate("/landing")
   }
+  function handleClickUser(e){
+    setProfile(!profile)
+    console.log("gggg")
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -84,7 +91,7 @@ export default function NavBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <Home />
+            <Home fontSize='large' />
           </IconButton>
           <Typography
             variant="h6"
@@ -96,12 +103,9 @@ export default function NavBar() {
           </Typography>
           <Search sx={{
             display: "flex",
-            // justifyContent: "center",
             alignItems: "center"
           }}>
-            {/* <SearchIconWrapper onClick={(e)=>handleBtn(e)}> */}
               <SearchIcon sx={{cursor:"pointer", marginLeft: "3px"}} onClick={(e)=>handleBtn(e)}/>
-            {/* </SearchIconWrapper> */}
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
@@ -109,6 +113,17 @@ export default function NavBar() {
               value = {input.customerName}
             />
           </Search>
+          <IconButton
+            onClick={(e)=>handleClickUser(e)}
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2, marginLeft: "1em" }}
+          >
+            <AccountCircleIcon fontSize='large' />
+          </IconButton>
+            {profile && <AlertDialog setProfile={setProfile}/>}
         </Toolbar>
       </AppBar>
     </Box>

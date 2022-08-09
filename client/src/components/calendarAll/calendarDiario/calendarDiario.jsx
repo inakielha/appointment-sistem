@@ -4,9 +4,7 @@ import interactionPlugin from "@fullcalendar/interaction"
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getDates } from '../../../redux/actions';
 import InputCalendar from '../inputCalendar/inputCalendar';
 
 
@@ -15,14 +13,13 @@ import InputCalendar from '../inputCalendar/inputCalendar';
 export default function CalendarDiario(date){
     const [dates, setDate] = useState("")
     const [openInput, setOpenInput] = useState(false)
-    const dispatch = useDispatch()
 
     function handleBtn(){
         date.setOpenSave(false)
     }
     function saveRecord(args) {
         setOpenInput(true)
-        console.log(args.dateStr)
+        // console.log(args.dateStr)
         setDate(args.dateStr)
     }
     return(
@@ -39,7 +36,7 @@ export default function CalendarDiario(date){
         }}
         events = {date.data}
         />
-        <InputCalendar date={dates} open={openInput} setOpenInput={setOpenInput}/>
+        <InputCalendar tokenInfo={date.tokenInfo} date={dates} open={openInput} setOpenInput={setOpenInput}/>
         </div>
     )
 }

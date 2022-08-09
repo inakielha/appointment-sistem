@@ -7,7 +7,7 @@ import style from "./createUser.module.css"
 
 export default function CreateAccount (){
     const dispatch = useDispatch();
-    const response = useSelector((state)=> state.response)
+    const response = useSelector((state)=> state.createResponse)
     const [input, setInput] = useState({
         userName:"",
         userEmail:"",

@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const validateJWT = (req, res = response, next) => {
     const bearerToken = req.header('Authorization');
-    
-    // 3540
+
     if (!bearerToken) {
         return res.status(401).json({
             ok: false,
@@ -13,7 +12,6 @@ const validateJWT = (req, res = response, next) => {
         })
     }
     let token = bearerToken.substring(7)
-    console.log(token)
 
     try {
         const { uid, name } = jwt.verify(
