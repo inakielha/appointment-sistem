@@ -13,7 +13,7 @@ app.use(cors())
 
 dbConnection()
 
-app.set("port",4000)
+app.set("port", process.env.PORT || 4000)
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
