@@ -57,7 +57,6 @@ export default function LogIn(){
             setRender("troll")
         }
     }
-    console.log(response)
     if(response.ok && response.type === userType) backToHome("/landing")
 
     return (

@@ -11,18 +11,28 @@ import { useParams } from "react-router-dom"
 import { createDate, getDates } from '../../../redux/actions';
 import {getToken,getAllInfoToken} from '../../../helper/getToken';
 import { useEffect } from 'react';
+import { Alert, Snackbar } from '@mui/material';
 
 
 
 
 export default function InputCalendar(props){
+    // const [alertSucces, setAlertSucces] = useState(false)
+    let noteCreated = useSelector((state)=>state.dateResponse)
+    const param = useParams()
     let storageLocal = getAllInfoToken()
     let userId = storageLocal.id
+    let email = storageLocal.email
+    let customerId = ""
+    if(storageLocal.type === "user"){
+         customerId= param.id
+    }
+    if (storageLocal.type === "customer"){
+         customerId = storageLocal.id
+    }
     const res = useSelector((state) => state.dateResponse)
     const dispatch = useDispatch()
     const [render, setRender] = useState(false)
-    const param = useParams()
-    const customerId= param.id
     const token = getToken()
     const [info, setInfo] = useState({
     title: ""
@@ -44,7 +54,7 @@ export default function InputCalendar(props){
             info:{
                 title: info.title,
                 date: props.date,
-                email: res.userEmail,
+                email,
                 customerId,
                 userId
             },

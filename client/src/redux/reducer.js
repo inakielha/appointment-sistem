@@ -1,4 +1,4 @@
-import { CHECK_LOGIN, CLEAR_RESPONSE_LOGIN, CREATE_CUSTOMER, CREATE_DATE, CREATE_USER, GET_ALL_PROFESSIONS, GET_BY_PROFESSION, GET_DATES, LOGIN, LOGIN_CUSTOMER, SEARCH_CUSTOMER, SELECT_USER_TYPE } from "./actions"
+import { CHECK_LOGIN, CLEAR_RESPONSE_LOGIN, CREATE_CUSTOMER, CREATE_DATE, CREATE_USER, GET_ALL_PROFESSIONS, GET_BY_PROFESSION, GET_DATES, GET_USER_BY_ID, LOGIN, LOGIN_CUSTOMER, SEARCH_CUSTOMER, SELECT_USER_TYPE } from "./actions"
 
 
 const initialState = {
@@ -14,7 +14,8 @@ const initialState = {
     allDates: [],
     userType: "",
     responseCheck: "",
-    loginCustomerResponse: ""
+    loginCustomerResponse: "",
+    user: ""
 }
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -107,5 +108,10 @@ export default function reducer(state = initialState, action) {
                 loginCustomerResponse: { ...state.loginCustomerResponse, ok: false },
                 loginUserResponse: { ...state.loginUserResponse, ok: false }
             }
+            case GET_USER_BY_ID:
+                return{
+                    ...state,
+                    user: action.payload
+                }
     }
 }

@@ -12,6 +12,7 @@ export const SELECT_USER_TYPE = "SELECT_USER_TYPE"
 export const LOGIN_CUSTOMER = "LOGIN_CUSTOMER"
 export const CHECK_LOGIN = "CHECK_LOGIN"
 export const CLEAR_RESPONSE_LOGIN = "CLEAR_RESPONSE_LOGIN"
+export const GET_USER_BY_ID = "GET_USER_BY_ID"
 
 export function createUser(info) {
     return async function (dispatch) {
@@ -211,3 +212,29 @@ export function clearResponseLogin() {
         })
     }
 }
+export function getUserById(id){
+    return async function(dispatch){
+        try{
+        let tokenLocalStorage = window.localStorage.getItem("loggedCustomer")
+        let tokenObject = JSON.parse(tokenLocalStorage)
+        let token = `Bearer ${tokenObject.token}`
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            }
+        };
+            let res = await axios.post("http://localhost:4000/users/getUser",id, config);
+            return dispatch({
+                type: GET_USER_BY_ID,
+                payload: res.data
+            })
+        }catch(e){
+            console.log(e)
+            return dispatch({
+                type: GET_USER_BY_ID,
+                payload: e
+            })
+        }
+        }
+    }

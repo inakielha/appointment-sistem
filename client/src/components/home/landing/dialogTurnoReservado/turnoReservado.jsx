@@ -5,10 +5,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useNavigate } from 'react-router-dom';
 
-export default function AlertDialog({setProfile}) {
-    const navigate = useNavigate()
+export default function TurnoReservado(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -16,29 +14,19 @@ export default function AlertDialog({setProfile}) {
   };
 
   const handleClose = () => {
-    setOpen(false);
+    props.setOpenDialog(false);
   };
-  const handleDialog = ()=>{
-    setProfile(false)
-  }
-  const handleLogout = ()=>{
-    window.localStorage.removeItem("loggedCustomer")
-    navigate("/")
-  }
 
   return (
     <div>
-      <Button variant="text" sx={{color: "white", fontSize: "1rem"}} onClick={handleClickOpen}>
-        Logout
-      </Button>
       <Dialog
-        open={open}
+        open={true}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Are you sure you want to log out?
+        I'm sorry, but this appointment is already booked
         </DialogTitle>
         {/* <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -47,9 +35,8 @@ export default function AlertDialog({setProfile}) {
           </DialogContentText>
         </DialogContent> */}
         <DialogActions>
-          <Button onClick={handleDialog}>Disagree</Button>
-          <Button onClick={handleLogout} autoFocus>
-            Agree
+          <Button onClick={handleClose} autoFocus>
+            Ok
           </Button>
         </DialogActions>
       </Dialog>

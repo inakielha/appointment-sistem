@@ -77,7 +77,6 @@ export default function NavBar() {
   }
   function handleClickUser(e){
     setProfile(!profile)
-    console.log("gggg")
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
