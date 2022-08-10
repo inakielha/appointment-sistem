@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const User = require('../models/Users');
 const {validateFields} = require("../middlewares/validateFields")
 const router = Router();
-const {createUser, logInUser, newToken} = require("../controllers/users");
+const {createUser, logInUser, newToken, getUser} = require("../controllers/users");
 const { validateJWT } = require('../middlewares/validateJWS');
 
 router.post(
@@ -38,6 +38,8 @@ router.post(
     ],
     logInUser
 )
-router.get("/", validateJWT, newToken);
+router.get("/", validateJWT,validateFields, newToken);
+
+router.post("/getUser", validateJWT,validateFields, getUser )
 
     module.exports = router

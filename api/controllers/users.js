@@ -50,8 +50,10 @@ try {
     const userForToken = {
         id: user._id,
         name: user.userName,
-        type: "user"
+        type: "user",
+        email: userEmail
     }
+    console.log(userForToken)
     const token = jwt.sign(userForToken, process.env.SECRET,{expiresIn: 60 * 60 * 24 * 7})
     res.send({
         ok:true,
@@ -70,18 +72,20 @@ try {
 }
 }
 const newToken = async (req , res = response)=>{
-    const { id, name , type } = req;
+    const { id, name , type , email } = req;
     try{
         const userForToken = {
             id,
             name,
-            type
+            type,
+            email
         }
         const token = jwt.sign(userForToken, process.env.SECRET,{expiresIn: 60 * 60 * 24 * 7})
         res.send({
             ok:true,
             name: name,
             id: id,
+            email,
             type,
             token
         })
@@ -91,8 +95,33 @@ const newToken = async (req , res = response)=>{
     }
 
 }
+const getUser = async(req,res)=>{
+const {userId, customerId} = req.body;
+try{
+    if(customerId === userId){
+        return res.json({
+            ok:true,
+            userEmail: "You create this appointment"
+        })
+    }
+    let user = await Users.findById(userId)
+    if(!user){
+        res.status(404).send("User not found");
+    }
+    res.json({
+        ok:true,
+        userEmail:user.userEmail,
+        userName: user.userName
+    })
+
+}catch(e){
+    console.log(e)
+    res.status(404).json({ok:false,msg:e})
+}
+}
 module.exports = {
     createUser,
     logInUser,
-    newToken
+    newToken,
+    getUser
 }

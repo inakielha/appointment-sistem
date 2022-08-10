@@ -55,7 +55,8 @@ try {
     const customerForToken = {
         id: customer._id,
         name: customer.customerName,
-        type: "customer"
+        type: "customer",
+        email: customerEmail
     }
     const token = jwt.sign(customerForToken, process.env.SECRET,{expiresIn: 60 * 60 * 24 * 7})
     res.send({

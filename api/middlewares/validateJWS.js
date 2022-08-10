@@ -14,13 +14,14 @@ const validateJWT = (req, res = response, next) => {
     let token = bearerToken.substring(7)
 
     try {
-        const {id, name, type } = jwt.verify(
+        const {id, name, type, email } = jwt.verify(
             token,
             process.env.SECRET
         ); 
         req.id = id;
         req.name = name;
         req.type = type;
+        req.email = email;
 
     } catch (error) {
         return res.status(401).json({
